@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerFlex Gym Equipment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-red: #e63946;
+            --accent-blue: #457b9d;
+            --accent-green: #2a9d8f;
+            --text-light: #f1faee;
+        }
+
+        /* Light theme variables */
+        .light-theme {
+            --primary-black: #f1faee;
+            --secondary-black: #e9ecef;
+            --text-light: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to bottom, rgba(10,10,10,0.95), rgba(10,10,10,0.8));
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.7);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.8rem 5%;
+            background: rgba(10,10,10,0.98);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--accent-green);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-red);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.4);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #heroVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero h2 span {
+            color: var(--accent-red);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .hero-buttons .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--accent-blue);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(69, 123, 157, 0.2);
+        }
+
+        .secondary-button:hover {
+            background-color: var(--accent-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(69, 123, 157, 0.3);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 6rem 5%;
+            background-color: var(--secondary-black);
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-red), var(--accent-blue));
+            border-radius: 2px;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #ccc;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            background: var(--accent-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-content p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 6rem 5%;
+            background-color: var(--primary-black);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background-color: var(--secondary-black);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Equipment Section */
+        .equipment-section {
+            padding: 6rem 5%;
+            background-color: var(--secondary-black);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-red), var(--accent-blue));
+            border-radius: 5px;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            color: #ccc;
+        }
+
+        .equipment-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-button {
+            background-color: var(--primary-black);
+            color: var(--text-light);
+            border: 2px solid var(--accent-blue);
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-button.active, .filter-button:hover {
+            background-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(69, 123, 157, 0.3);
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .equipment-card {
+            background-color: var(--primary-black);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(230, 57, 70, 0.2);
+        }
+
+        .equipment-img {
+            height: 220px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .equipment-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .equipment-card:hover .equipment-img img {
+            transform: scale(1.1);
+        }
+
+        .equipment-content {
+            padding: 1.5rem;
+        }
+
+        .equipment-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .equipment-content p {
+            color: #aaa;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        /* Membership Section */
+        .membership-section {
+            padding: 6rem 5%;
+            background-color: var(--primary-black);
+        }
+
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .membership-card {
+            background-color: var(--secondary-black);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .membership-card.popular {
+            border: 2px solid var(--accent-red);
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent-red);
+            color: white;
+            padding: 0.5rem 3rem;
+            transform: rotate(45deg);
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .membership-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .membership-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .membership-header {
+            margin-bottom: 2rem;
+        }
+
+        .membership-name {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .membership-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .membership-duration {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        .membership-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+
+        .membership-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .membership-features li:last-child {
+            border-bottom: none;
+        }
+
+        .membership-features i {
+            color: var(--accent-green);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 5%;
+            background-color: var(--secondary-black);
+            position: relative;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--primary-black);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            color: #ccc;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -10px;
+            font-size: 3rem;
+            color: var(--accent-blue);
+            opacity: 0.5;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1.5rem;
+            border: 3px solid var(--accent-blue);
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .author-info p {
+            color: var(--accent-green);
+            font-size: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 6rem 5%;
+            background-color: var(--primary-black);
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 5rem;
+            align-items: flex-start;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-red);
+            border-radius: 2px;
+        }
+
+        .contact-details {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-details li {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-details i {
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .contact-form {
+            flex: 1;
+            background-color: var(--secondary-black);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background-color: #333;
+            border: 2px solid #555;
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.3);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-black);
+            padding: 5rem 5% 2rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-red);
+            border-radius: 2px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-red);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: #333;
+            border-radius: 50%;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-red);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid #333;
+            color: #777;
+            font-size: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .equipment-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .about-container {
+                flex-direction: column;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--primary-black);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 3rem;
+                transition: all 0.5s ease;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1.5rem 0;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .membership-card.popular {
+                transform: scale(1);
+            }
+            
+            .membership-card.popular:hover {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 0 5%;
+                text-align: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                align-items: center;
+            }
+            
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+            
+            .services-grid, .membership-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons .cta-button, .secondary-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #c1121f;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">
+            <h1>Power<span>Flex</span></h1>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#equipment">Equipment</a></li>
+                <li><a href="#membership">Membership</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="#membership"><button class="cta-button">Join Now</button></a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop playsinline id="heroVideo">
+            <source src="Background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content fade-in">
+            <h2>Transform Your <span>Body</span> With Powerflex</h2>
+            <p>Discover premium gym equipment, expert training, and a supportive community dedicated to helping you achieve your fitness goals.</p>
+            <div class="hero-buttons">
+                <a href="#membership"><button class="cta-button">Start Your Journey</button></a>
+                <a href="#about"><button class="secondary-button">Learn More</button></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="background.jpeg" alt="PowerFlex Gym">
+            </div>
+            <div class="about-content">
+                <h2>About PowerFlex</h2>
+                <p>PowerFlex is more than just a gym - it's a community of fitness enthusiasts dedicated to helping you achieve your goals. With state-of-the-art equipment and expert trainers, we provide the perfect environment for your fitness journey.</p>
+                <p>Founded in 2022, we've helped thousands of members transform their lives through fitness. Our mission is to make premium fitness accessible to everyone.</p>
+                
+                <div class="about-features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Premium Equipment</h4>
+                            <p>Top-of-the-line machines and free weights for all your workout needs.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Expert Trainers</h4>
+                            <p>Certified professionals to guide and motivate you throughout your journey.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Flexible Hours</h4>
+                            <p>Open 24/7 to fit your busy schedule and lifestyle.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Supportive Community</h4>
+                            <p>Join a network of like-minded individuals on their fitness journeys.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>We offer a wide range of services to help you achieve your fitness goals</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3>Strength Training</h3>
+                <p>Build muscle and increase strength with our comprehensive strength training programs and equipment.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-running"></i>
+                </div>
+                <h3>Cardio Workouts</h3>
+                <p>Improve your cardiovascular health with our state-of-the-art cardio machines and guided programs.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <h3>Personal Training</h3>
+                <p>Get one-on-one guidance from certified personal trainers tailored to your specific goals.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3>Nutrition Planning</h3>
+                <p>Complement your workouts with personalized nutrition plans designed by our experts.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Group Classes</h3>
+                <p>Join our energetic group classes including yoga, spinning, HIIT, and more.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h3>Recovery Services</h3>
+                <p>Optimize your recovery with our sauna, massage, and physical therapy services.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section class="equipment-section" id="equipment">
+        <div class="section-title">
+            <h2>Our Equipment</h2>
+            <p>Explore our premium selection of gym equipment designed for professional and home use</p>
+        </div>
+        
+        <div class="equipment-filter">
+            <button class="filter-button active">All Equipment</button>
+            <button class="filter-button">Cardio</button>
+            <button class="filter-button">Strength</button>
+            <button class="filter-button">Weights</button>
+            <button class="filter-button">Accessories</button>
+        </div>
+        
+        <div class="equipment-grid" id="equipmentGrid">
+            <!-- Equipment cards will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Membership Section -->
+    <section class="membership-section" id="membership">
+        <div class="section-title">
+            <h2>Membership Plans</h2>
+            <p>Choose the plan that works best for your fitness journey</p>
+        </div>
+        
+        <div class="membership-grid">
+            <div class="membership-card fade-in">
+                <div class="membership-header">
+                    <h3 class="membership-name">Basic</h3>
+                    <div class="membership-price">₦55,000</div>
+                    <div class="membership-duration">per month</div>
+                </div>
+                <ul class="membership-features">
+                    <li><i class="fas fa-check"></i> Access to gym equipment</li>
+                    <li><i class="fas fa-check"></i> Locker room access</li>
+                    <li><i class="fas fa-times"></i> Personal training</li>
+                    <li><i class="fas fa-times"></i> Group classes</li>
+                    <li><i class="fas fa-times"></i> Nutrition consultation</li>
+                </ul>
+                <button class="cta-button">Select Plan</button>
+            </div>
+            
+            <div class="membership-card popular fade-in">
+                <div class="popular-badge">Most Popular</div>
+                <div class="membership-header">
+                    <h3 class="membership-name">Pro</h3>
+                    <div class="membership-price">₦80,000</div>
+                    <div class="membership-duration">per month</div>
+                </div>
+                <ul class="membership-features">
+                    <li><i class="fas fa-check"></i> All Basic features</li>
+                    <li><i class="fas fa-check"></i> Unlimited group classes</li>
+                    <li><i class="fas fa-check"></i> 2 personal training sessions</li>
+                    <li><i class="fas fa-check"></i> Nutrition consultation</li>
+                    <li><i class="fas fa-times"></i> Recovery services</li>
+                </ul>
+                <button class="cta-button">Select Plan</button>
+            </div>
+            
+            <div class="membership-card fade-in">
+                <div class="membership-header">
+                    <h3 class="membership-name">Elite</h3>
+                    <div class="membership-price">₦150,000</div>
+                    <div class="membership-duration">per month</div>
+                </div>
+                <ul class="membership-features">
+                    <li><i class="fas fa-check"></i> All Pro features</li>
+                    <li><i class="fas fa-check"></i> Unlimited personal training</li>
+                    <li><i class="fas fa-check"></i> All recovery services</li>
+                    <li><i class="fas fa-check"></i> Priority booking</li>
+                    <li><i class="fas fa-check"></i> Bring a friend monthly</li>
+                </ul>
+                <button class="cta-button">Select Plan</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-title">
+            <h2>Customer Testimonials</h2>
+            <p>See what our members are saying about their PowerFlex experience</p>
+        </div>
+        <div class="testimonial-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-text">
+                    The PowerFlex equipment transformed my home gym. The quality is exceptional and the booking process was seamless. Highly recommended!
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="Edward Johnson.jpeg" alt="Edward Johnson">
+                    </div>
+                    <div class="author-info">
+                        <h4>Edward Johnson</h4>
+                        <p>Fitness Trainer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-text">
+                    I've been using PowerFlex equipment for my commercial gym for over a year. The durability and performance are unmatched in the market.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="David Chen.jpeg" alt="David Chen">
+                    </div>
+                    <div class="author-info">
+                        <h4>David Chen</h4>
+                        <p>Gym Owner</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-text">
+                    The rental service is fantastic! I can try different equipment each month without the commitment of buying. Great concept and execution.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="Sarah Glenn.jpeg" alt="Sarah Glenn">
+                    </div>
+                    <div class="author-info">
+                        <h4>Sarah Glenn</h4>
+                        <p>Home Fitness Enthusiast</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Get in touch with our team for any questions or inquiries</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <p>Have questions about our services or membership plans? Reach out to our friendly team and we'll be happy to assist you.</p>
+                
+                <ul class="contact-details">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Address</strong><br>
+                            456 Curry McLucas Street, Tampa Florida
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone</strong><br>
+                            +234 (814) 089-1719
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong><br>
+                            info@powerflex.com
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Opening Hours</strong><br>
+                            Mon-Sat: 5AM-6PM
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>PowerFlex</h3>
+                <p>Your premier destination for premium gym equipment and fitness services. Transform your fitness journey with us.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1BXnjcKxmp/?mibextid=wwXIfr"><i class="fab fa-facebook-f"></i></a>
+                    <a href="tel:+2349058546155"><i class="fas fa-phone"></i></a>
+                    <a href="https://wa.me/+2349058546155"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:aramidealeem@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#equipment">Equipment</a></li>
+                    <li><a href="#membership">Membership</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#personal Training">Personal Training</a></li>
+                    <li><a href="#group Classes">Group Classes</a></li>
+                    <li><a href="#nutrition Planning">Nutrition Planning</a></li>
+                    <li><a href="#Equipment Rental">Equipment Rental</a></li>
+                    <li><a href="#Recovery Services">Recovery Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 456 Curry McLucas Street, Tampa Florida</li>
+                    <li><i class="fas fa-phone"></i> +234 (814) 089-1719</li>
+                    <li><i class="fas fa-envelope"></i> info@powerflex.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Sat: 5AM-6PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2022 - 2025 PowerFlex Gym Equipment. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Equipment Data - 30+ items
+        const equipmentData = [
+            { 
+                name: "Pro Series Dumbbells", 
+                image: "Pro Series Dumbbells.jpeg", 
+                category: "weights" 
+            },
+            { 
+                name: "Elite Treadmill X7", 
+                image: "Elite Treadmill X7.jpeg", 
+                category: "cardio" 
+            },
+            { 
+                name: "Power Rack System", 
+                image: "Power Rack System.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Adjustable Bench Pro", 
+                image: "Adjustable Bench Pro.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Spin Bike Pro", 
+                image: "Spin Bike Pro.jpeg", 
+                category: "cardio" 
+            },
+            { 
+                name: "Olympic Barbell Set", 
+                image: "Olympic Barbell Set.jpeg", 
+                category: "weights" 
+            },
+            { 
+                name: "Kettlebell Set", 
+                image: "Kettlebell Set.jpeg", 
+                category: "weights" 
+            },
+            { 
+                name: "Elliptical Trainer", 
+                image: "Elliptical Trainer.jpeg", 
+                category: "cardio" 
+            },
+            { 
+                name: "Cable Crossover", 
+                image: "Cable Crossover.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Leg Press Machine", 
+                image: "Leg Press Machine.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Rowing Machine", 
+                image: "Rowing Machine.jpeg", 
+                category: "cardio" 
+            },
+            { 
+                name: "Multi-Gym Station", 
+                image: "Multi-Gym Station.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Adjustable Dumbbells", 
+                image: "Adjustable Dumbbells.jpeg", 
+                category: "weights" 
+            },
+            { 
+                name: "Yoga Mat Pro", 
+                image: "Yoga Mat Pro.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Resistance Bands Set", 
+                image: "Resistance Bands Set.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Plyometric Box", 
+                image: "Plyometric Box.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Battle Ropes", 
+                image: "Battle Ropes.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Medicine Balls Set", 
+                image: "Medicine Balls Set.jpeg", 
+                category: "weights" 
+            },
+            { 
+                name: "Pull-Up Bar", 
+                image: "Pull-Up Bar.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Ab Roller Wheel", 
+                image: "Ab Roller Wheel.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Step Platform", 
+                image: "Step Platform.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Foam Roller", 
+                image: "Foam Roller.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Weight Plates Set", 
+                image: "Weight Plates Set.jpeg", 
+                category: "weights" 
+            },
+            { 
+                name: "Lat Pulldown Machine", 
+                image: "Lat Pulldown Machine.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Leg Extension Machine", 
+                image: "Leg Extension Machine.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Chest Press Machine", 
+                image: "Chest Press Machine.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Incline Treadmill", 
+                image: "Incline Treadmill.jpeg", 
+                category: "cardio" 
+            },
+            { 
+                name: "Air Bike", 
+                image: "Air Bike.jpeg", 
+                category: "cardio" 
+            },
+            { 
+                name: "Stair Climber", 
+                image: "Stair Climber.jpeg", 
+                category: "cardio" 
+            },
+            { 
+                name: "Smith Machine", 
+                image: "Smith Machine.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Dip Station", 
+                image: "Hang Bar.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Glute Ham Developer", 
+                image: "Glute Ham Developer.jpeg", 
+                category: "strength" 
+            },
+            { 
+                name: "Landmine Attachment", 
+                image: "Landmine Attachment.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Weightlifting Belt", 
+                image: "Weightlifting Belt.jpeg", 
+                category: "accessories" 
+            },
+            { 
+                name: "Lifting Straps", 
+                image: "Lifting Straps.jpeg", 
+                category: "accessories" 
+            }
+        ];
+
+        // Generate Equipment Cards
+        const equipmentGrid = document.getElementById('equipmentGrid');
+        
+        function generateEquipmentCards(equipmentList) {
+            equipmentGrid.innerHTML = '';
+            
+            equipmentList.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'equipment-card fade-in';
+                
+                card.innerHTML = `
+                    <div class="equipment-img">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="equipment-content">
+                        <h3>${item.name}</h3>
+                        <p>Professional-grade equipment for optimal performance and durability.</p>
+                    </div>
+                `;
+                
+                equipmentGrid.appendChild(card);
+            });
+        }
+        
+        // Initialize with all equipment
+        generateEquipmentCards(equipmentData);
+        
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Filter Equipment
+        const filterButtons = document.querySelectorAll('.filter-button');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.textContent.toLowerCase();
+                let filteredEquipment;
+                
+                if (filter === 'all equipment') {
+                    filteredEquipment = equipmentData;
+                } else if (filter === 'cardio') {
+                    filteredEquipment = equipmentData.filter(item => item.category === 'cardio');
+                } else if (filter === 'strength') {
+                    filteredEquipment = equipmentData.filter(item => item.category === 'strength');
+                } else if (filter === 'weights') {
+                    filteredEquipment = equipmentData.filter(item => item.category === 'weights');
+                } else if (filter === 'accessories') {
+                    filteredEquipment = equipmentData.filter(item => item.category === 'accessories');
+                }
+                
+                generateEquipmentCards(filteredEquipment);
+            });
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const buttonText = document.getElementById('buttonText');
+        const loading = document.getElementById('loading');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            buttonText.style.display = 'none';
+            loading.style.display = 'inline-block';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Reset form
+                contactForm.reset();
+                
+                // Show success state
+                buttonText.textContent = 'Message Sent!';
+                buttonText.style.display = 'inline-block';
+                loading.style.display = 'none';
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    buttonText.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+                }, 2000);
+            }, 1500);
+        });
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            
+            // Change icon based on theme
+            if (document.body.classList.contains('light-theme')) {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-adjust"></i>';
+            }
+        });
+
+        // Simple animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.style.opacity = "1";
+                        element.style.transform = "translateY(0)";
+                    }
+                });
+            };
+            
+            // Set initial state
+            fadeElements.forEach(element => {
+                element.style.opacity = "0";
+                element.style.transform = "translateY(30px)";
+                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+            });
+            
+            window.addEventListener('scroll', fadeInOnScroll);
+            fadeInOnScroll(); // Check on load
+        });
+
+        // Ensure video plays
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('heroVideo');
+            video.play().catch(error => {
+                console.log("Video autoplay failed:", error);
+            });
+        });
+    </script>
+</body>
+</html>
